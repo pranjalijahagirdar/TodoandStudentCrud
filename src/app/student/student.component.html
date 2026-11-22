@@ -1,0 +1,115 @@
+<h1 class="bg-primary text-white text-center m-3 p-2">Student Crud</h1>
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-4 mb-4 mnb-md-0">
+            <div class="card">
+                <div class="card-body">
+                    <h1>
+                        {{isInEditMode ? 'Update Student': 'Add Student'}}
+                    </h1>
+                    <div class="form-group">
+                        <label for="fname">First Name*</label>
+                        <input type="text" #fnameRef class="form-control">
+                    </div>
+                    <div class="form-group">
+                       <label for="lname">Last Name*</label>
+                       <input type="text" #lnameRef class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email*</label>
+                        <input type="text" #emailRef class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact">Contact*</label>
+                        <input type="text" #contactRef class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="isActive">Is Active</label>
+                        <select #isActiveRef class="form-control">
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="course">Course*</label>
+                        <select #courseRef class="form-control">
+                            <option value="MCA">MCA</option>
+                            <option value="BCA">BCA</option>
+                            <option value="BSc IT">BSc IT</option>
+                            <option value="BSc CS">BSc CS</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City*</label>
+                        <input type="text" #cityRef class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age*</label>
+                        <input type="text" #ageRef class="form-control">
+                    </div>
+                    <button (click)="onAddStd()"
+                    *ngIf="!isInEditMode" class="btn btn-sm btn-block btn-primary">Add Student</button>
+                    <button (click)="onUpdateStd()" *ngIf="isInEditMode" class="btn btn-sm btn-danger btn-block">Update Student</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered mb-0" *ngIf="studentArr.length > 0; else noStd">
+                            <thead>
+                                <tr>
+                                    <th>Sr.No</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
+                                    <th>Contact</th>
+                                    <th>Is Active</th>
+                                    <th>Course</th>
+                                    <th>City</th>
+                                    <th>Age</th>
+                                    <th>Edit</th>
+                                    <th>Remove</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let std of studentArr; let i = index; trackBy : trackByStdId">
+                                    <td>{{i+1}}</td>
+                                    <td>{{std.fname}} {{std.lname}}</td>
+                                    <td>{{std.email}}</td>
+                                    <td>{{std.contact}}</td>
+                                    <td class="text-center">
+                                        <span class="badge" [ngClass]="{
+                                            'badge-success':std.isActive,
+                                            'badge-danger':!std.isActive
+                                        }">
+                                        {{std.isActive ? 'Yes':'No'}}
+                                    </span>
+                                    </td>
+                                    <td>{{std.course}}</td>
+                                    <td>{{std.city}}</td>
+                                    <td>{{std.age}}</td>
+                                    <td>
+                                        <button mat-mini-fab color="primary"(click)="onEditStd(std)">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button mat-mini-fab color="warn"(click)="onRemoveStd(std)" [disabled]="editStdId===std.id">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ng-template #noStd>
+                        <p class="text-center text-danger">
+                            No Student Added yet !!!
+                        </p>
+                    </ng-template>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

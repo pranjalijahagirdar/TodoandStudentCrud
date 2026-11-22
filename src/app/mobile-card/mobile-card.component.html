@@ -1,0 +1,60 @@
+<div class="card" [ngClass]="{
+    'noproduct': !mobileObj.isAvailable
+}">
+<div class="card-body">
+    <div class="row align-items-center">
+        <div class="col-md-4">
+            <div class="img-container">
+                <img [src]="mobileObj.image" [alt]="mobileObj.name" *ngIf="mobileObj.image; else noImg">
+                <ng-template #noImg>
+                    <p>No Product Image !!!</p>
+                </ng-template>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <h3 class="mobile-title">
+                {{mobileObj.name}}
+                <small class="badge" [ngClass]="{
+                    'badge-success':mobileObj.rating >=4,
+                    'badge-warning':mobileObj.rating < 4,
+                    'badge-danger':mobileObj.rating < 3
+                     }">
+                    {{mobileObj.rating}}
+                </small>
+            </h3>
+            <p class="text-muted mb-2">
+                Brand : {{mobileObj.brand}}
+            </p>
+            <h5>Features :</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"
+                *ngFor="let feature of mobileObj.features">
+                {{feature}}
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-3">
+            <div class="price">
+                <h3 class="text-success">
+                    {{mobileObj.price | currency:'INR'}}
+                </h3>
+                <del class="text-muted">
+                    {{mobileObj.price + (mobileObj.price * .1) | currency:'INR'}}
+                </del>
+                <strong *ngIf="mobileObj.noOfItem < 10" class="text-danger mt-3">
+                    Only {{mobileObj.noOfItem}} left !!!
+                </strong>
+                <span *ngIf="mobileObj.isAvailable" class="text-success mt-2">
+                    In Stock
+                </span>
+                <span *ngIf="!mobileObj.isAvailable" class="text-danger mt-2">
+                    Out Of Stock
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+    <p class="text-danger noProductMsg" *ngIf="!mobileObj.isAvailable">
+        Product is not available
+    </p>
+</div>

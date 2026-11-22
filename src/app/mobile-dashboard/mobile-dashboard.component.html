@@ -1,0 +1,8 @@
+<div class="container mt-5">
+    <h2 class="text-center bg-danger p-2 mb-4">Mobile Dashboard</h2>
+    <div class="row">
+        <div class="col-12 mb-4" *ngFor="let mobileObj of mobileArr">
+            <app-mobile-card [mobileObj]="mobileObj"></app-mobile-card>
+        </div>
+    </div>
+</div>
